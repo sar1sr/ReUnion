@@ -17,6 +17,7 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
     RecyclerView recyclerView;
     UserAdapter userAdapter;
 
+    int test = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
