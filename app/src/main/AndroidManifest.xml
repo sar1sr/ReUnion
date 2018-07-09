@@ -10,16 +10,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SplashActivity">
+        <activity
+            android:name=".activity.SplashActivity"
+            android:noHistory="true"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.ConversationsActivity" />
-        <activity android:name=".activity.UsersActivity" />
+        <activity android:name=".activity.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".activity.ConversationsActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".activity.UsersActivity"
+            android:launchMode="singleInstance" />
+        <activity android:name=".activity.ChatActivity"></activity>
     </application>
 
 </manifest>

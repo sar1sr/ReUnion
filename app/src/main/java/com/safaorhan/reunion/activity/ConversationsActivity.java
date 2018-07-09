@@ -8,8 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.safaorhan.reunion.FirestoreHelper;
 import com.safaorhan.reunion.R;
 import com.safaorhan.reunion.adapter.ConversationAdapter;
 
@@ -19,6 +21,8 @@ public class ConversationsActivity extends AppCompatActivity implements Conversa
 
     RecyclerView recyclerView;
     ConversationAdapter conversationAdapter;
+
+    public final int CONVERSATION_SELECTED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +52,15 @@ public class ConversationsActivity extends AppCompatActivity implements Conversa
 
     @Override
     public void onConversationClick(DocumentReference conversationRef) {
-        
+        navigateToChatActivity(conversationRef);
+    }
+
+    private void navigateToChatActivity(DocumentReference conversationRef) {
+        Intent intent = new Intent(this , ChatActivity.class);
+        String idString = FirestoreHelper.getConversationId(conversationRef);
+        intent.putExtra("idString", idString);
+        startActivityForResult(intent, CONVERSATION_SELECTED);
+
     }
 
     @Override

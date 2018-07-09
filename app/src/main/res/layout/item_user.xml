@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     android:padding="16dp">
@@ -10,12 +11,15 @@
         android:id="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        tools:text="lastMessageText"
+        android:textStyle="bold"
         android:gravity="center"/>
 
     <TextView
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        tools:text="lastMessageText"
         android:gravity="center" />
 
 </LinearLayout>
