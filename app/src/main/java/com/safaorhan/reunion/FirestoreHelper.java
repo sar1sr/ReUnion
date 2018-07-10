@@ -107,6 +107,7 @@ public class FirestoreHelper {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         // Do nothing for now
+                                        //TODO :
                                     }
                                 });
                     }
@@ -125,6 +126,10 @@ public class FirestoreHelper {
 
     public static DocumentReference getConversationRef(Conversation conversation) {
         return getConversations().document(conversation.getId());
+    }
+
+    public static DocumentReference getConversationRefById(String id) {
+        return getConversations().document(id);
     }
 
     public static DocumentReference getUserRef(User user) {

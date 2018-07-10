@@ -1,11 +1,13 @@
 package com.safaorhan.reunion.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -20,6 +22,8 @@ import com.safaorhan.reunion.R;
 import com.safaorhan.reunion.model.Conversation;
 import com.safaorhan.reunion.model.Message;
 import com.safaorhan.reunion.model.User;
+
+import java.util.Random;
 
 public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, ConversationAdapter.ConversationHolder> {
     private static final String TAG = ConversationAdapter.class.getSimpleName();
@@ -79,12 +83,16 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
         View itemView;
         TextView opponentNameText;
         TextView lastMessageText;
+        TextView firstLetterTextView;
+        ImageView profile_image;
 
         public ConversationHolder(View itemView) {
             super(itemView);
             this.itemView = itemView;
             opponentNameText = itemView.findViewById(R.id.opponentNameText);
             lastMessageText = itemView.findViewById(R.id.lastMessageText);
+            profile_image = itemView.findViewById(R.id.profile_image);
+            firstLetterTextView = itemView.findViewById(R.id.firstLetterTextView);
         }
 
         public void bind(final Conversation conversation) {
@@ -103,10 +111,12 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     User opponent = documentSnapshot.toObject(User.class);
                     opponentNameText.setText(opponent.getName());
+                    firstLetterTextView.setText(String.valueOf(opponent.getName().charAt(0)));
                     itemView.setVisibility(View.VISIBLE);
                 }
             });
 
+            profile_image.setColorFilter(getRandomColor());
 
             if (conversation.getLastMessage() != null) {
                 conversation.getLastMessage().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -119,7 +129,14 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
             } else {
                 lastMessageText.setText("Write something to start a conversation!");
             }
+        }
 
+        public int getRandomColor() {
+            Random rand = new Random();
+            int r = rand.nextInt(255);
+            int g = rand.nextInt(255);
+            int b = rand.nextInt(255);
+            return Color.rgb(r, g, b);
         }
     }
 

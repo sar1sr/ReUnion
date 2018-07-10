@@ -1,5 +1,6 @@
 package com.safaorhan.reunion.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +17,9 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
 
     RecyclerView recyclerView;
     UserAdapter userAdapter;
+
+    public final int NEW_CONVERSATION_SELECTED = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,11 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
         FirestoreHelper.findOrCreateConversation(userRef, new FirestoreHelper.DocumentReferenceCallback() {
             @Override
             public void onCompleted(DocumentReference documentReference) {
+
+                Intent intent = new Intent(UsersActivity.this , ChatActivity.class);
+                String idString = FirestoreHelper.getConversationId(documentReference);
+                intent.putExtra("idString", idString);
+                startActivityForResult(intent, NEW_CONVERSATION_SELECTED);
                 finish();
             }
         });
