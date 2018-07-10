@@ -58,11 +58,11 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(LoginActivity.this, ConversationsActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Bad credentials", Toast.LENGTH_SHORT).show();
                             Log.e("Bad Credentiols","couldn't check the mail or password");
                         }
-
                         isTryingToLogin = false;
                     }
                 })

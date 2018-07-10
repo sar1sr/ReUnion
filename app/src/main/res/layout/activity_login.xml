@@ -4,23 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="32dp"
-    tools:context=".activity.LoginActivity"
-    android:background="@color/colorPrimary">
-
-    <ImageView
-        android:layout_width="283dp"
-        android:layout_height="185dp"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
-        android:src="@drawable/logo" />
+    tools:context=".activity.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="108dp"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <EditText
@@ -33,15 +22,13 @@
             android:id="@+id/passwordEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Passwosssrd" />
+            android:hint="Password" />
 
         <Button
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:text="Log In"
-            android:textColor="#ffffff" />
+            android:text="Log In" />
     </LinearLayout>
 
 </RelativeLayout>
