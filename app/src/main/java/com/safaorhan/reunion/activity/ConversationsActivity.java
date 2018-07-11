@@ -2,6 +2,7 @@ package com.safaorhan.reunion.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.safaorhan.reunion.FirestoreHelper;
 import com.safaorhan.reunion.R;
 import com.safaorhan.reunion.adapter.ConversationAdapter;
+
+import java.io.Serializable;
 
 public class ConversationsActivity extends AppCompatActivity implements ConversationAdapter.ConversationClickListener {
 
@@ -21,8 +26,6 @@ public class ConversationsActivity extends AppCompatActivity implements Conversa
 
     RecyclerView recyclerView;
     ConversationAdapter conversationAdapter;
-
-    public final int CONVERSATION_SELECTED = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,12 @@ public class ConversationsActivity extends AppCompatActivity implements Conversa
         conversationAdapter = ConversationAdapter.get();
         conversationAdapter.setConversationClickListener(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        recyclerView.setLayoutManager(layoutManager);
+
         recyclerView.setAdapter(conversationAdapter);
     }
 
@@ -57,10 +65,10 @@ public class ConversationsActivity extends AppCompatActivity implements Conversa
 
     private void navigateToChatActivity(DocumentReference conversationRef) {
         Intent intent = new Intent(this , ChatActivity.class);
-        String idString = FirestoreHelper.getConversationId(conversationRef);
-        intent.putExtra("idString", idString);
-        startActivityForResult(intent, CONVERSATION_SELECTED);
 
+        String id = conversationRef.getId();
+        intent.putExtra("id", id);
+        startActivity(intent);
     }
 
     @Override

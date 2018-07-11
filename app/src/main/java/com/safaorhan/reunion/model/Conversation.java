@@ -35,6 +35,7 @@ public class Conversation {
     }
 
     public DocumentReference getOpponent() {
+
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         String myId = firebaseAuth.getUid();
 

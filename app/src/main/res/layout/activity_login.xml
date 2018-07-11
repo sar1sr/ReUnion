@@ -16,8 +16,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="67dp"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
             android:src="@drawable/logo"/>
 
         <EditText
@@ -33,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
+            android:inputType="textPassword"
             android:hint="@string/password" />
 
         <Button
@@ -41,7 +42,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:layout_marginTop="30.5dp"
-            android:layout_marginBottom="112dp"
             android:background="@color/log_in_button_color"
             android:text="@string/log_in" />
 
