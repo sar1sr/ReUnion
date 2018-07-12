@@ -20,15 +20,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
+        <activity
+            android:name=".activity.LoginActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".activity.ConversationsActivity"
+            android:label="Conversations"
             android:launchMode="singleInstance" />
         <activity
             android:name=".activity.UsersActivity"
+            android:label="People"
             android:launchMode="singleInstance" />
-        <activity android:name=".activity.ChatActivity"/>
+        <activity android:name=".activity.ChatActivity" />
     </application>
 
 </manifest>

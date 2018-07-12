@@ -45,6 +45,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setAdapter(messagesAdapter);
 
         onChatSendButtonClicked(chatSendButton);
@@ -69,6 +70,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
     private void onChatSendButtonClicked(RelativeLayout chatSendButton) {
@@ -78,7 +80,8 @@ public class ChatActivity extends AppCompatActivity {
                 String message = chatBoxEditText.getText().toString().trim();
                 FirestoreHelper.sendMessage(message, conversationRef);
                 chatBoxEditText.setText("");
-                messagesAdapter.notifyDataSetChanged();
+                messagesAdapter.notifyItemInserted(messagesAdapter.getItemCount());
+                recyclerView.scrollToPosition(messagesAdapter.getItemCount() - 1);
             }
         });
     }
