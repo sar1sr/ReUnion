@@ -53,12 +53,17 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
             @Override
             public void onCompleted(DocumentReference documentReference) {
 
-                Intent intent = new Intent(UsersActivity.this , ChatActivity.class);
-                String idString = FirestoreHelper.getConversationId(documentReference);
-                intent.putExtra("idString", idString);
-                startActivityForResult(intent, NEW_CONVERSATION_SELECTED);
+                navigateToChatActivity(documentReference);
                 finish();
             }
         });
     }
+    private void navigateToChatActivity(DocumentReference conversationRef) {
+        Intent intent = new Intent(this , ChatActivity.class);
+
+        String id = conversationRef.getId();
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
 }
