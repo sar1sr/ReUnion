@@ -110,9 +110,12 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     User opponent = documentSnapshot.toObject(User.class);
-                    opponentNameText.setText(opponent.getName());
-                    firstLetterTextView.setText(String.valueOf(opponent.getName().charAt(0)));
-                    itemView.setVisibility(View.VISIBLE);
+                    if (opponent != null){
+                        String s = opponent.getName();
+                        opponentNameText.setText(s);
+                        firstLetterTextView.setText(String.valueOf(opponent.getName().charAt(0)));
+                        itemView.setVisibility(View.VISIBLE);
+                    }
                 }
             });
 
