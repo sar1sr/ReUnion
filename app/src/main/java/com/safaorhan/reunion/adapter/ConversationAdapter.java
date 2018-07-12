@@ -119,7 +119,9 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 }
             });
 
-            profile_image.setColorFilter(getRandomColor());
+            if (profile_image.getColorFilter() == null){
+                profile_image.setColorFilter(getRandomColor());
+            }
 
             if (conversation.getLastMessage() != null) {
                 conversation.getLastMessage().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {

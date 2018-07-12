@@ -34,7 +34,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         Query query = FirebaseFirestore.getInstance()
                 .collection("messages")
                 .whereEqualTo("conversation", conversationRef)
-                .orderBy("sentAt")
+                .orderBy("sentAt" , Query.Direction.ASCENDING)
                 .limit(100);
 
         FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
