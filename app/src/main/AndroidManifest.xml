@@ -28,7 +28,7 @@
         <activity
             android:name=".activity.UsersActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".activity.ChatActivity"></activity>
+        <activity android:name=".activity.ChatActivity"/>
     </application>
 
 </manifest>

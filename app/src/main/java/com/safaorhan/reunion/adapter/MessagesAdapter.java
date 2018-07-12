@@ -1,5 +1,6 @@
 package com.safaorhan.reunion.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,27 +24,6 @@ import com.safaorhan.reunion.model.User;
 
 public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesAdapter.MessageViewHolder> {
 
-    /*
-    MessageClickListener messageClickListener;
-
-    public MessageClickListener getMessageClickListener() {
-
-        if (messageClickListener == null) {
-            messageClickListener = new MessageClickListener() {
-                @Override
-                public void onMessageSent(User userRef) {
-
-                }
-            };
-        }
-        return messageClickListener;
-    }
-
-    public void setMessageClickListener(MessageClickListener messageClickListener) {
-        this.messageClickListener = messageClickListener;
-    }
-
-    */
     public MessagesAdapter(@NonNull FirestoreRecyclerOptions<Message> options) {
         super(options);
     }
@@ -51,12 +31,11 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
 
     public static MessagesAdapter get(DocumentReference conversationRef) {
 
-
         Query query = FirebaseFirestore.getInstance()
                 .collection("messages")
                 .whereEqualTo("conversation", conversationRef)
-                //.orderBy("timestamp")
-                .limit(50);
+                //.orderBy("sentAt")
+                .limit(100);
 
         FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
                 .setQuery(query, Message.class)
@@ -82,6 +61,8 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         TextView fromTextView;
         TextView messageContentTextView;
 
+        User fromUser;
+
         public MessageViewHolder(View itemView) {
             super(itemView);
 
@@ -94,17 +75,23 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
             message.getFrom().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    User user = documentSnapshot.toObject(User.class);
-                    fromTextView.setText(user.getName());
+                    fromUser = documentSnapshot.toObject(User.class);
+                    FirestoreHelper.getMe().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            User me = documentSnapshot.toObject(User.class);
+                            fromTextView.setText(fromUser.getName());
+                            if(!me.getName().equalsIgnoreCase(fromUser.getName())){
+                                fromTextView.setTextColor(Color.parseColor("#d10c1c"));
+                            }
+                        }
+                    });
+                    fromTextView.setText(fromUser.getName());
                 }
             });
-
             messageContentTextView.setText(message.getText());
-        }
-    }
 
-    public interface MessageClickListener {
-        void onMessageSent(User userRef);
+        }
     }
 
 }
