@@ -95,7 +95,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
             nameText.setText(user.getName() + " " + user.getSurname());
             emailText.setText(user.getEmail());
 
-            if (profile_image.getColorFilter() == null){
+            if (profile_image.getColorFilter() == null) {
                 profile_image.setColorFilter(getRandomColor());
             }
 
@@ -103,6 +103,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
 
             if (user.getId().equals(FirebaseAuth.getInstance().getUid())) {
                 itemView.setOnClickListener(null);
+                itemView.setBackgroundColor(Color.parseColor("#f95c5c"));
             } else {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -112,11 +113,12 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
                 });
             }
         }
+
         public int getRandomColor() {
             Random rand = new Random();
-            int r = rand.nextInt(255);
-            int g = rand.nextInt(255);
-            int b = rand.nextInt(255);
+            int r = rand.nextInt(200);
+            int g = rand.nextInt(200);
+            int b = rand.nextInt(200);
             return Color.rgb(r, g, b);
         }
     }

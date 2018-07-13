@@ -6,21 +6,23 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.safaorhan.reunion.FirestoreHelper;
 import com.safaorhan.reunion.R;
-import com.safaorhan.reunion.model.Conversation;
 import com.safaorhan.reunion.model.Message;
 import com.safaorhan.reunion.model.User;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesAdapter.MessageViewHolder> {
 
@@ -34,7 +36,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         Query query = FirebaseFirestore.getInstance()
                 .collection("messages")
                 .whereEqualTo("conversation", conversationRef)
-                .orderBy("sentAt" , Query.Direction.ASCENDING)
+                .orderBy("sentAt", Query.Direction.ASCENDING)
                 .limit(100);
 
         FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
@@ -60,6 +62,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
 
         TextView fromTextView;
         TextView messageContentTextView;
+        TextView sentAtTextView;
 
         User fromUser;
 
@@ -68,6 +71,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
 
             fromTextView = itemView.findViewById(R.id.fromTextView);
             messageContentTextView = itemView.findViewById(R.id.messageContentTextView);
+            sentAtTextView = itemView.findViewById(R.id.sentAtTextView);
         }
 
         public void bind(Message message) {
@@ -81,7 +85,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             User me = documentSnapshot.toObject(User.class);
                             fromTextView.setText(fromUser.getName());
-                            if(!me.getName().equalsIgnoreCase(fromUser.getName())){
+                            if (!me.getName().equalsIgnoreCase(fromUser.getName())) {
                                 fromTextView.setTextColor(Color.parseColor("#d10c1c"));
                             }
                         }
@@ -89,8 +93,24 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                     fromTextView.setText(fromUser.getName());
                 }
             });
-            messageContentTextView.setText(message.getText());
 
+            messageContentTextView.setText(message.getText());
+            sentAtTextView.setText(getSentAt(message));
+        }
+
+        private String getSentAt(Message message) {
+            Timestamp timestamp = message.getSentAt();
+            long seconds;
+            if (timestamp == null) {
+                Date date = new Date();
+                seconds = date.getSeconds();
+            } else {
+                seconds = timestamp.toDate().getTime();
+            }
+            SimpleDateFormat formats = new SimpleDateFormat("hh:mm");
+            Date myDate = new Date(seconds);
+            String sentAtDates = formats.format(myDate);
+            return sentAtDates;
         }
     }
 

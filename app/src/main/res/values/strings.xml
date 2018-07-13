@@ -5,4 +5,5 @@
     <string name="password">Password</string>
     <string name="email">Email</string>
     <string name="enter_message">Enter message</string>
+    <string name="Write_something_to_start_a_conversation">Write something to start a conversation!</string>
 </resources>

@@ -33,4 +33,14 @@
         android:layout_height="wrap_content"
         android:textColor="#8b000000"
         tools:text="the message is here" />
+
+    <TextView
+        android:id="@+id/sentAtTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:textColor="#8b000000"
+        android:textSize="10sp"
+        tools:text="the message is here" />
+
 </LinearLayout>

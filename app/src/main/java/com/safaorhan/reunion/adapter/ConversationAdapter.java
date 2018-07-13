@@ -29,7 +29,6 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
     private static final String TAG = ConversationAdapter.class.getSimpleName();
     ConversationClickListener conversationClickListener;
 
-
     public ConversationAdapter(@NonNull FirestoreRecyclerOptions<Conversation> options) {
         super(options);
     }
@@ -54,7 +53,6 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
     public static ConversationAdapter get() {
         Query query = FirebaseFirestore.getInstance()
                 .collection("conversations")
-                //.orderBy("timestamp")
                 .whereEqualTo(FirestoreHelper.getMe().getId(), true)
                 .limit(50);
 
@@ -110,7 +108,7 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     User opponent = documentSnapshot.toObject(User.class);
-                    if (opponent != null){
+                    if (opponent != null) {
                         String s = opponent.getName();
                         opponentNameText.setText(s);
                         firstLetterTextView.setText(String.valueOf(opponent.getName().charAt(0)));
@@ -119,7 +117,8 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 }
             });
 
-            if (profile_image.getColorFilter() == null){
+
+            if (profile_image.getColorFilter() == null) {
                 profile_image.setColorFilter(getRandomColor());
             }
 
@@ -132,7 +131,7 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                     }
                 });
             } else {
-                lastMessageText.setText("Write something to start a conversation!");
+                lastMessageText.setText(R.string.Write_something_to_start_a_conversation);
             }
         }
 
