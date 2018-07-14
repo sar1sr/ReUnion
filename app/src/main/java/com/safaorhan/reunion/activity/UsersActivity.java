@@ -1,15 +1,22 @@
 package com.safaorhan.reunion.activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.safaorhan.reunion.FirestoreHelper;
 import com.safaorhan.reunion.R;
 import com.safaorhan.reunion.adapter.UserAdapter;
+
+import java.io.IOException;
 
 public class UsersActivity extends AppCompatActivity implements UserAdapter.UserClickListener {
 
@@ -17,9 +24,6 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
 
     RecyclerView recyclerView;
     UserAdapter userAdapter;
-
-    public final int NEW_CONVERSATION_SELECTED = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +62,9 @@ public class UsersActivity extends AppCompatActivity implements UserAdapter.User
             }
         });
     }
+
     private void navigateToChatActivity(DocumentReference conversationRef) {
-        Intent intent = new Intent(this , ChatActivity.class);
+        Intent intent = new Intent(this, ChatActivity.class);
 
         String id = conversationRef.getId();
         intent.putExtra("id", id);

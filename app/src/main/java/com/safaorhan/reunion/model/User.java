@@ -1,5 +1,7 @@
 package com.safaorhan.reunion.model;
 
+import android.graphics.ColorFilter;
+
 public class User {
     String id;
     String name;

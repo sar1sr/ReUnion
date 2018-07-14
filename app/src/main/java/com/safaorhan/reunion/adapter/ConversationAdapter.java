@@ -1,6 +1,7 @@
 package com.safaorhan.reunion.adapter;
 
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -95,7 +96,7 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
 
         public void bind(final Conversation conversation) {
 
-            itemView.setVisibility(View.GONE);
+            itemView.setVisibility(View.INVISIBLE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,6 +118,11 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
                 }
             });
 
+
+            if (profile_image.getColorFilter() == null) {
+                profile_image.setColorFilter(getRandomColor());
+
+            }
 
             if (profile_image.getColorFilter() == null) {
                 profile_image.setColorFilter(getRandomColor());
@@ -142,6 +148,7 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
             int b = rand.nextInt(255);
             return Color.rgb(r, g, b);
         }
+
     }
 
     public interface ConversationClickListener {

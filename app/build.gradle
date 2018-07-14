@@ -45,6 +45,8 @@ dependencies {
 
     //circular ImageView
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+
+    implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -82,13 +82,13 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
         TextView firstLetterTextView;
 
         public UserHolder(View itemView) {
+
             super(itemView);
             this.itemView = itemView;
             nameText = itemView.findViewById(R.id.nameText);
             emailText = itemView.findViewById(R.id.emailText);
             profile_image = itemView.findViewById(R.id.profile_image);
             firstLetterTextView = itemView.findViewById(R.id.firstLetterTextView);
-
         }
 
         public void bind(final User user) {
@@ -111,6 +111,7 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
                     }
                 });
             }
+
         }
 
         public int getRandomColor() {
