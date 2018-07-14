@@ -103,7 +103,6 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
 
             if (user.getId().equals(FirebaseAuth.getInstance().getUid())) {
                 itemView.setOnClickListener(null);
-                itemView.setBackgroundColor(Color.parseColor("#f95c5c"));
             } else {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

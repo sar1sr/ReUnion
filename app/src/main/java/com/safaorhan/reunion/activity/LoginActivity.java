@@ -48,6 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = emailEdit.getText().toString();
         String password = passwordEdit.getText().toString();
 
+        if (email.isEmpty() || password.isEmpty()){
+            return;
+        }
         isTryingToLogin = true;
         FirebaseAuth
                 .getInstance()

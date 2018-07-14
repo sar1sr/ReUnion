@@ -95,7 +95,7 @@ public class ConversationAdapter extends FirestoreRecyclerAdapter<Conversation, 
 
         public void bind(final Conversation conversation) {
 
-            itemView.setVisibility(View.INVISIBLE);
+            itemView.setVisibility(View.GONE);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

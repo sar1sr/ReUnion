@@ -24,26 +24,25 @@ import com.safaorhan.reunion.model.User;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesAdapter.MessageViewHolder> {
+public class ChatAdapter extends FirestoreRecyclerAdapter<Message, ChatAdapter.MessageViewHolder> {
 
-    public MessagesAdapter(@NonNull FirestoreRecyclerOptions<Message> options) {
+    public ChatAdapter(@NonNull FirestoreRecyclerOptions<Message> options) {
         super(options);
     }
 
-
-    public static MessagesAdapter get(DocumentReference conversationRef) {
+    public static ChatAdapter get(DocumentReference conversationRef) {
 
         Query query = FirebaseFirestore.getInstance()
                 .collection("messages")
                 .whereEqualTo("conversation", conversationRef)
-                .orderBy("sentAt", Query.Direction.ASCENDING)
-                .limit(100);
+                .orderBy("sentAt")
+                .limit(200);
 
         FirestoreRecyclerOptions<Message> options = new FirestoreRecyclerOptions.Builder<Message>()
                 .setQuery(query, Message.class)
                 .build();
 
-        return new MessagesAdapter(options);
+        return new ChatAdapter(options);
     }
 
     @Override
@@ -54,7 +53,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_message, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_chat, parent, false);
         return new MessageViewHolder(itemView);
     }
 
@@ -63,7 +62,6 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
         TextView fromTextView;
         TextView messageContentTextView;
         TextView sentAtTextView;
-
         User fromUser;
 
         public MessageViewHolder(View itemView) {
@@ -85,7 +83,7 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                         public void onSuccess(DocumentSnapshot documentSnapshot) {
                             User me = documentSnapshot.toObject(User.class);
                             fromTextView.setText(fromUser.getName());
-                            if (!me.getName().equalsIgnoreCase(fromUser.getName())) {
+                            if (!(me.getName().equalsIgnoreCase(fromUser.getName()))) {
                                 fromTextView.setTextColor(Color.parseColor("#d10c1c"));
                             }
                         }
@@ -93,7 +91,6 @@ public class MessagesAdapter extends FirestoreRecyclerAdapter<Message, MessagesA
                     fromTextView.setText(fromUser.getName());
                 }
             });
-
             messageContentTextView.setText(message.getText());
             sentAtTextView.setText(getSentAt(message));
         }
