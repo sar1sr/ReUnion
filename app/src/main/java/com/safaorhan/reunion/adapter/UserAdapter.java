@@ -111,7 +111,6 @@ public class UserAdapter extends FirestoreRecyclerAdapter<User, UserAdapter.User
                     }
                 });
             }
-
         }
 
         public int getRandomColor() {
